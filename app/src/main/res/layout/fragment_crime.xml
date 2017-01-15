@@ -28,6 +28,7 @@
 	<Button
 		android:layout_height="wrap_content"
 		android:layout_width="match_parent"
+		android:text="Crime Date"
 		android:id="@+id/crime_date"
 		android:layout_marginLeft="16dp"
 		android:layout_marginRight="16dp"/>
@@ -35,9 +36,10 @@
 	<Button
 		android:layout_height="wrap_content"
 		android:layout_width="match_parent"
-		android:id="@+id/crime_time"
+		android:text="Crime Time"
 		android:layout_marginLeft="16dp"
-		android:layout_marginRight="16dp"/>
+		android:layout_marginRight="16dp"
+		android:id="@+id/crime_time"/>
 
 	<CheckBox
 		android:layout_height="wrap_content"

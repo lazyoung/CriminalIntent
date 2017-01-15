@@ -8,15 +8,15 @@
     <string name="crime_details_label">Details</string>
     <string name="crime_solved_label">Solved?</string>
     <string name="date_picker_title">Date of Crime</string>
+    <string name="crimes_title">Crimes</string>
+    <string name="new_crime">New Crime</string>
+    <string name="show_subtitle">Show Subtitle</string>
+    <string name="hide_subtitle">Hide Subtitle</string>
+    <string name="subtitle">If you see something, say something</string>
+    <string name="delete_crime">Delete</string>
     <string name="time_picker_title">Time of crime</string>
     <string name="dialog_setDate">Set Date of crime</string>
     <string name="dialog_setTime">Set Time of crime</string>
     <string name="dialog_setRequest">When Crime occurred?</string>
-    <string name="crimes_title">Crimes</string>
-    <string name="new_crime">New Crime</string>
-    <string name="show_subtitle">Show Subtitle</string>
-    <string name="hide_crime">Hide Subtitle</string>
-    <string name="subtitle">If you see something, say something.</string>
-    <string name="delete_crime">Delete</string>
     
 </resources>

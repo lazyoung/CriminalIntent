@@ -54,27 +54,31 @@ public class CrimeListFragment extends ListFragment
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
+    public void onCreateOptionsMenu(Menu menu,MenuInflater inflater)
+    {
+        super.onCreateOptionsMenu(menu,inflater);
         inflater.inflate(R.menu.fragment_crime_list, menu);
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        // TODO: Implement this method
         return super.onOptionsItemSelected(item);
     }
-
+    
     private class CrimeAdapter extends ArrayAdapter<Crime> {
         
         public CrimeAdapter(ArrayList<Crime> crimes) {
-            super(getActivity(),android.R.layout.simple_list_item_1,crimes);
+            super(getActivity(),android.R.layout.simple_list_item_1,crimes); 
         }
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent)
         {
             if(convertView == null) {
-                convertView = getActivity().getLayoutInflater().inflate(R.layout.list_item_crime,null);
+                convertView = getActivity().
+                getLayoutInflater().inflate(R.layout.list_item_crime,null);
             }
 
             DateFormat format = new SimpleDateFormat("EEEE, yyyy年MM月dd日, HH时mm分", Locale.CHINA);
