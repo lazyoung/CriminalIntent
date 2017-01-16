@@ -22,6 +22,8 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 import java.util.UUID;
+import android.view.*;
+import android.support.v4.app.*;
 
 public class CrimeFragment extends Fragment
 {
@@ -45,13 +47,31 @@ public class CrimeFragment extends Fragment
         super.onCreate( savedInstanceState );
         UUID crimeId = (UUID)getArguments().getSerializable(EXTRA_CRIME_ID);
         mCrime = CrimeLab.get(getActivity()).getCrime(crimeId);
+		setHasOptionsMenu(true);
     }
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		switch(item.getItemId()) {
+			case android.R.id.home:
+				if (NavUtils.getParentActivityName(getActivity()) != null) {
+					NavUtils.navigateUpFromSameTask(getActivity());
+				}
+				return true;
+			default:
+			    return super.onOptionsItemSelected(item);
+		}
+	}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState)
     {
         View v = inflater.inflate(R.layout.fragment_crime,parent,false);
-        getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
+		if (NavUtils.getParentActivityName(getActivity()) != null) {
+			getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+		
         mTitleField = (EditText)v.findViewById(R.id.crime_title);
         mTitleField.setText(mCrime.getTitle());
         mTitleField.addTextChangedListener(new TextWatcher() {
