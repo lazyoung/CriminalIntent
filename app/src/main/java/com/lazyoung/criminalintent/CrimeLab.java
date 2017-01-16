@@ -13,13 +13,6 @@ public class CrimeLab
     private CrimeLab(Context appContext) {
         mAppContext = appContext;
         mCrimes = new ArrayList<Crime>();
-        
-        for(int i = 0; i < 100; i++){
-            Crime c = new Crime();
-            c.setTitle("Crime #" + i);
-            c.setSolved(i % 2 == 0);
-            mCrimes.add(c);
-        }
     }
     
     public static CrimeLab get(Context c) {
@@ -33,6 +26,10 @@ public class CrimeLab
     public ArrayList<Crime> getCrimes() {
         return mCrimes;
     }
+	
+	public void addCrime(Crime c) {
+		mCrimes.add(c);
+	}
     
     public Crime getCrime(UUID id) {
         for(Crime c : mCrimes) {
