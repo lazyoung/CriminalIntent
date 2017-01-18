@@ -13,7 +13,6 @@ public class CrimeListFragment extends ListFragment
     private ArrayList<Crime> mCrimes;
     private static final int REQUEST_CRIME = 1;
 	private boolean mSubtitleVisible;
-    private Button mNewCrimeButton;
    
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -29,13 +28,13 @@ public class CrimeListFragment extends ListFragment
     }
 
 	@Override
-    @NonNull
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
 		View v = inflater.inflate(R.layout.fragment_list_crime, container, false);
         ListView listView = (ListView) v.findViewById(android.R.id.list);
         listView.setEmptyView(v.findViewById(android.R.id.empty));
-        mNewCrimeButton = (Button) v.findViewById(R.id.newCrimeButton);
+
+        Button mNewCrimeButton = (Button) v.findViewById(R.id.newCrimeButton);
         mNewCrimeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
