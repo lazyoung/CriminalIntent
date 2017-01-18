@@ -18,5 +18,6 @@
     <string name="dialog_setDate">Set Date of crime</string>
     <string name="dialog_setTime">Set Time of crime</string>
     <string name="dialog_setRequest">When Crime occurred?</string>
+    <string name="empty_list">No Crimes, please add one.</string>
     
 </resources>
