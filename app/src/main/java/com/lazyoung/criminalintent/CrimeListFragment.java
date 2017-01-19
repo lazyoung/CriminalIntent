@@ -13,6 +13,7 @@ public class CrimeListFragment extends ListFragment
     private ArrayList<Crime> mCrimes;
     private static final int REQUEST_CRIME = 1;
 	private boolean mSubtitleVisible;
+    private Button mNewCrimeButton;
    
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -34,7 +35,7 @@ public class CrimeListFragment extends ListFragment
         ListView listView = (ListView) v.findViewById(android.R.id.list);
         listView.setEmptyView(v.findViewById(android.R.id.empty));
 
-        Button mNewCrimeButton = (Button) v.findViewById(R.id.newCrimeButton);
+        mNewCrimeButton = (Button) v.findViewById(R.id.newCrimeButton);
         mNewCrimeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,7 +108,7 @@ public class CrimeListFragment extends ListFragment
     private class CrimeAdapter extends ArrayAdapter<Crime> {
         
         public CrimeAdapter(ArrayList<Crime> crimes) {
-            super(getActivity(),android.R.layout.simple_list_item_1,crimes); 
+            super(getActivity(),android.R.layout.simple_list_item_1,crimes);
         }
 
         @Override
