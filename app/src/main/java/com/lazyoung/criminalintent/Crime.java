@@ -20,7 +20,14 @@ public class Crime
         mId = UUID.randomUUID();
         mDate = new Date();
     }
-
+	
+    public Crime(JSONObject json) throws JSONException {
+		mId = UUID.fromString(json.getString(JSON_ID));
+		mTitle = json.getString(JSON_TITLE);
+		mSolved = json.getBoolean(JSON_SOLVED);
+		mDate = new Date(json.getLong(JSON_DATE));   
+	}
+		
     public JSONObject toJSON() throws JSONException {
         JSONObject json = new JSONObject();
         json.put(JSON_ID, mId.toString());
