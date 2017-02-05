@@ -1,13 +1,11 @@
 package com.lazyoung.criminalintent;
 import android.content.*;
 import android.os.*;
-import android.support.annotation.NonNull;
 import android.support.v4.app.*;
 import android.view.*;
 import android.widget.*;
 import java.text.*;
 import java.util.*;
-import android.view.ContextMenu.*;
 import android.widget.AdapterView.*;
 import android.widget.AbsListView.*;
 
