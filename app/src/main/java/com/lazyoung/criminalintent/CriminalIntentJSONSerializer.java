@@ -1,6 +1,8 @@
 package com.lazyoung.criminalintent;
 
 import android.content.*;
+import android.os.Environment;
+
 import java.io.*;
 import java.util.*;
 import org.json.*;
@@ -19,7 +21,13 @@ public class CriminalIntentJSONSerializer {
         BufferedReader reader = null;
         try {
             // open and read the file into a StringBuilder
-            InputStream in = mContext.openFileInput(mFileName);
+            InputStream in = null; //mContext.openFileInput(mFileName);
+            if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+                in = new FileInputStream(new File(Environment.getExternalStorageDirectory().getAbsolutePath(), mFileName));
+            }
+            else {
+                in = mContext.openFileInput(mFileName);
+            }
             reader = new BufferedReader(new InputStreamReader(in));
             StringBuilder jsonString = new StringBuilder();
             String line = null;
@@ -49,8 +57,14 @@ public class CriminalIntentJSONSerializer {
 
         Writer writer = null;
         try {
-            OutputStream out = mContext.openFileOutput(mFileName, Context.MODE_PRIVATE);
-            writer = new OutputStreamWriter(out);
+            OutputStream out = null; //mContext.openFileOutput(mFileName, Context.MODE_PRIVATE);
+            if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+                out = new FileOutputStream(new File(Environment.getExternalStorageDirectory().getAbsolutePath(), mFileName));
+            }
+            else {
+                out = mContext.openFileOutput(mFileName, Context.MODE_PRIVATE);
+            }
+                writer = new OutputStreamWriter(out);
             writer.write(array.toString());
         } finally {
             if(writer != null)

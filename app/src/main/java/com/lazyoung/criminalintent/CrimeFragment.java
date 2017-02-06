@@ -50,7 +50,13 @@ public class CrimeFragment extends Fragment
 		setHasOptionsMenu(true);
     }
 
-	@Override
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.crime_list_item_context, menu);
+    }
+
+    @Override
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
 		switch(item.getItemId()) {
@@ -59,6 +65,8 @@ public class CrimeFragment extends Fragment
 					NavUtils.navigateUpFromSameTask(getActivity());
 				}
 				return true;
+            case R.id.menu_item_delete_crime:
+                CrimeLab.get(getActivity()).deleteCrime(mCrime);
 			default:
 			    return super.onOptionsItemSelected(item);
 		}
