@@ -19,5 +19,6 @@
     <string name="dialog_setTime">Set Time of crime</string>
     <string name="dialog_setRequest">When Crime occurred?</string>
     <string name="empty_list">No Crimes, please add one.</string>
+    <string name="take">Take!</string>
     
 </resources>
