@@ -1,6 +1,5 @@
 package com.lazyoung.criminalintent;
 
-import android.graphics.Camera;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,7 +8,8 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-
+import android.hardware.Camera;
+import android.os.*;
 
 public class CrimeCameraFragment extends Fragment {
     private static final String TAG = "CrimeCameraFragment";
@@ -33,4 +33,29 @@ public class CrimeCameraFragment extends Fragment {
 
         return v;
     }
+
+	@Override
+	public void onResume()
+	{
+		super.onResume();
+		if ( Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
+		    mCamera = Camera.open(0);
+		}
+		else {
+			mCamera = Camera.open();
+		}
+	}
+
+	@Override
+	public void onPause()
+	{
+		super.onPause();
+		
+		if(mCamera != null) {
+			mCamera.release();
+			mCamera = null;
+		}
+	}
+	
+	
 }
