@@ -1,10 +1,9 @@
 package com.lazyoung.criminalintent;
 
-import android.content.*;
 import android.os.Environment;
-
+import android.content.Context;
+import java.util.ArrayList;
 import java.io.*;
-import java.util.*;
 import org.json.*;
 
 public class CriminalIntentJSONSerializer {

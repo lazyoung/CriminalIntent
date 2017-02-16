@@ -1,6 +1,5 @@
 package com.lazyoung.criminalintent;
 
-import android.hardware.Camera;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,7 +12,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import java.io.IOException;
 import java.util.List;
-
+import android.hardware.Camera;
+import android.os.Build;
 
 public class CrimeCameraFragment extends Fragment {
     private static final String TAG = "CrimeCameraFragment";
@@ -82,6 +82,31 @@ public class CrimeCameraFragment extends Fragment {
 
         return v;
     }
+
+	@Override
+	public void onResume()
+	{
+		super.onResume();
+		if ( Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
+		    mCamera = Camera.open(0);
+		}
+		else {
+			mCamera = Camera.open();
+		}
+	}
+
+	@Override
+	public void onPause()
+	{
+		super.onPause();
+
+		if(mCamera != null) {
+			mCamera.release();
+			mCamera = null;
+		}
+	}
+
+
 
     /** A simple algorithm to get the largest size available.For a more *
      *  robust version, see CameraPreview. java in the ApiDemos
