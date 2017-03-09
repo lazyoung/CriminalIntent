@@ -13,7 +13,9 @@ import android.widget.Button;
 import java.io.IOException;
 import java.util.List;
 import android.hardware.Camera;
+import android.hardware.Camera.Size;
 import android.os.Build;
+import android.util.Log;
 
 public class CrimeCameraFragment extends Fragment {
     private static final String TAG = "CrimeCameraFragment";
@@ -58,7 +60,7 @@ public class CrimeCameraFragment extends Fragment {
 
                 //The surface has changed size; update the camera preview size
                 Camera.Parameters parameters = mCamera.getParameters();
-                Camera.Size s = getBestSupportedSize(parameters.getSupportedPictureSizes(), width, height);
+                Size s = getBestSupportedSize(parameters.getSupportedPictureSizes(), width, height);
                 parameters.setPreviewSize(s.width, s.height);
                 mCamera.setParameters(parameters);
 
@@ -112,10 +114,10 @@ public class CrimeCameraFragment extends Fragment {
      *  robust version, see CameraPreview. java in the ApiDemos
      *  * sample app from Android. */
     @SuppressWarnings("deprecation")
-    private Camera.Size getBestSupportedSize(List<Camera.Size> sizes, int width, int height) {
-        Camera.Size bestSize = sizes.get(0);
+    private Size getBestSupportedSize(List<Size> sizes, int width, int height) {
+        Size bestSize = sizes.get(0);
         int largestArea = bestSize.width * bestSize.height;
-        for (Camera.Size s : sizes) {
+        for (Size s : sizes) {
             int area = s.width * s.height;
             if (area > largestArea) {
                 bestSize = s;
