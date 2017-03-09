@@ -24,6 +24,8 @@ import java.util.TimeZone;
 import java.util.UUID;
 import android.view.*;
 import android.support.v4.app.*;
+import android.widget.*;
+import android.content.pm.*;
 
 public class CrimeFragment extends Fragment
 {
@@ -39,6 +41,7 @@ public class CrimeFragment extends Fragment
     private Button mDateButton;
     private Button mTimeButton;
     private Button mSetButton;
+	private ImageButton mPhotoButton;
     private CheckBox mSolvedCheckBox;
 
     @Override
@@ -137,6 +140,21 @@ public class CrimeFragment extends Fragment
                 mCrime.setSolved(isChecked);
             }
         });
+		
+		mPhotoButton = (ImageButton)v.findViewById(R.id.crime_imageButton);
+		mPhotoButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent i = new Intent(getActivity(), CrimeCameraActivity.class);
+				startActivity(i);
+			}
+		});
+		
+		// If camera is not available, disable camera functionality
+		PackageManager pm = getActivity().getPackageManager();
+		if (!pm.hasSystemFeature(PackageManager.FEATURE_CAMERA) && !pm.hasSystemFeature(PackageManager.FEATURE_CAMERA_FRONT)) {
+			mPhotoButton.setEnabled(false);
+		}
         
         return v;
     }
