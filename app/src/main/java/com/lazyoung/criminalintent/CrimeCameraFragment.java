@@ -16,6 +16,7 @@ import android.hardware.Camera;
 import android.hardware.Camera.Size;
 import android.os.Build;
 import android.util.Log;
+import android.annotation.TargetApi;
 
 public class CrimeCameraFragment extends Fragment {
     private static final String TAG = "CrimeCameraFragment";
@@ -60,7 +61,7 @@ public class CrimeCameraFragment extends Fragment {
 
                 //The surface has changed size; update the camera preview size
                 Camera.Parameters parameters = mCamera.getParameters();
-                Size s = getBestSupportedSize(parameters.getSupportedPictureSizes(), width, height);
+                Size s = getBestSupportedSize(parameters.getSupportedPreviewSizes(), width, height);
                 parameters.setPreviewSize(s.width, s.height);
                 mCamera.setParameters(parameters);
 
@@ -86,6 +87,7 @@ public class CrimeCameraFragment extends Fragment {
     }
 
 	@Override
+	@TargetApi(9)
 	public void onResume()
 	{
 		super.onResume();
