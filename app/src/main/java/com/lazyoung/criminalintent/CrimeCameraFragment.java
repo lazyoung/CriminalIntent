@@ -23,6 +23,7 @@ public class CrimeCameraFragment extends Fragment {
 
     private Camera mCamera;
     private SurfaceView mSurfaceView;
+	private View mProgressContainer;
 
     @Nullable
     @Override
@@ -30,7 +31,9 @@ public class CrimeCameraFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_crime_camera, container, false);
 
-        Button takePictureButton = (Button)v.findViewById(R.id.crime_camera_takePictureButton);
+        mProgressContainer = v.findViewById(R.id.cime_camera_progressContainer);
+		mProgressContainer.setVisibility(View.INVISIBLE);
+		Button takePictureButton = (Button)v.findViewById(R.id.crime_camera_takePictureButton);
         takePictureButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 getActivity().finish();
