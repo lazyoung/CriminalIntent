@@ -20,10 +20,11 @@ import android.annotation.TargetApi;
 import java.util.*;
 import java.io.*;
 import android.content.*;
+import android.app.*;
 
 public class CrimeCameraFragment extends Fragment {
     private static final String TAG = "CrimeCameraFragment";
-
+    public static final String EXTRA_PHOTO_FILENAME = "com.lazyoung.criminalintent.photo_filename";
     private Camera mCamera;
     private SurfaceView mSurfaceView;
 	private View mProgressContainer;
@@ -59,8 +60,13 @@ public class CrimeCameraFragment extends Fragment {
 				}
 			}
 			
+			// Set the photo filename on the result intent
 			if (success) {
-				Log.i(TAG, "JPEG saved at " + filename);
+				Intent i = new Intent();
+				i.putExtra(EXTRA_PHOTO_FILENAME, filename);
+				getActivity().setResult(Activity.RESULT_OK, i);
+			} else {
+				getActivity().setResult(Activity.RESULT_CANCELED);
 			}
 			getActivity().finish();
 		}
@@ -141,7 +147,7 @@ public class CrimeCameraFragment extends Fragment {
 	{
 		super.onResume();
 		if ( Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
-		    mCamera = Camera.open(0);
+		    mCamera = Camera.open(1);
 		}
 		else {
 			mCamera = Camera.open();

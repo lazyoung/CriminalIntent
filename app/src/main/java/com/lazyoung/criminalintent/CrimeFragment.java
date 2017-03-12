@@ -26,6 +26,7 @@ import android.view.*;
 import android.support.v4.app.*;
 import android.widget.*;
 import android.content.pm.*;
+import android.util.*;
 
 public class CrimeFragment extends Fragment
 {
@@ -36,6 +37,8 @@ public class CrimeFragment extends Fragment
     private static final int REQUEST_TIME = 1;
     private static final String DIALOG_CHOICE = "choice";
     private static final int REQUEST_CHOICE = 2;
+	private static final int REQUEST_PHOTO = 3;
+	private static final String TAG = "CrimeFragment";
     private Crime mCrime;
     private EditText mTitleField;
     private Button mDateButton;
@@ -146,7 +149,7 @@ public class CrimeFragment extends Fragment
 			@Override
 			public void onClick(View v) {
 				Intent i = new Intent(getActivity(), CrimeCameraActivity.class);
-				startActivity(i);
+				startActivityForResult(i, REQUEST_PHOTO);
 			}
 		});
 		
@@ -187,6 +190,12 @@ public class CrimeFragment extends Fragment
                 TimePickerFragment dialog = TimePickerFragment.newInstance(mCrime.getDate());
                 dialog.setTargetFragment(CrimeFragment.this, REQUEST_TIME);
                 dialog.show(fm, DIALOG_TIME);
+            }
+        } else if (requestCode == REQUEST_PHOTO) {
+			// Create a new Photo object and attach it to the crime
+			String filename = data.getStringExtra(CrimeCameraFragment.EXTRA_PHOTO_FILENAME);
+			if  (filename != null) {
+				Log.i(TAG, "filename: " + filename);
             }
         }
     }
