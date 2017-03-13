@@ -1,27 +1,12 @@
 package com.lazyoung.criminalintent;
-import android.app.Activity;
+
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
+import android.app.Activity;
 import android.widget.CompoundButton.OnCheckedChangeListener;
-import android.widget.EditText;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-import java.util.TimeZone;
-import java.util.UUID;
+import android.text.*;
+import java.text.*;
+import java.util.*;
 import android.view.*;
 import android.support.v4.app.*;
 import android.widget.*;
@@ -38,16 +23,16 @@ public class CrimeFragment extends Fragment
     private static final int REQUEST_TIME = 1;
     private static final String DIALOG_CHOICE = "choice";
     private static final int REQUEST_CHOICE = 2;
-	private static final int REQUEST_PHOTO = 3;
-	private static final String TAG = "CrimeFragment";
+	  private static final int REQUEST_PHOTO = 3;
+	  private static final String DIALOG_IMAGE = "image";
     private Crime mCrime;
     private EditText mTitleField;
     private Button mDateButton;
     private Button mTimeButton;
     private Button mSetButton;
-	private ImageButton mPhotoButton;
+	  private ImageButton mPhotoButton;
     private CheckBox mSolvedCheckBox;
-	private ImageView mPhotoView;
+	  private ImageView mPhotoView;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -90,8 +75,8 @@ public class CrimeFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState)
     {
         View v = inflater.inflate(R.layout.fragment_crime,parent,false);
-		if (NavUtils.getParentActivityName(getActivity()) != null) {
-			getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
+		    if (NavUtils.getParentActivityName(getActivity()) != null) {
+			    getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
         }
 		
         mTitleField = (EditText)v.findViewById(R.id.crime_title);
@@ -146,23 +131,33 @@ public class CrimeFragment extends Fragment
             }
         });
 		
-		mPhotoButton = (ImageButton)v.findViewById(R.id.crime_imageButton);
-		mPhotoButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent i = new Intent(getActivity(), CrimeCameraActivity.class);
-				startActivityForResult(i, REQUEST_PHOTO);
-			}
-		});
+	    	mPhotoButton = (ImageButton)v.findViewById(R.id.crime_imageButton);
+		    mPhotoButton.setOnClickListener(new View.OnClickListener() {
+		  	    @Override
+		  	    public void onClick(View v) {
+				       Intent i = new Intent(getActivity(), CrimeCameraActivity.class);
+				       startActivityForResult(i, REQUEST_PHOTO);
+			      }
+	    	});
 		
-		// If camera is not available, disable camera functionality
-		PackageManager pm = getActivity().getPackageManager();
-		if (!pm.hasSystemFeature(PackageManager.FEATURE_CAMERA) && !pm.hasSystemFeature(PackageManager.FEATURE_CAMERA_FRONT)) {
-			mPhotoButton.setEnabled(false);
-		}
+		    // If camera is not available, disable camera functionality
+		    PackageManager pm = getActivity().getPackageManager();
+		    if (!pm.hasSystemFeature(PackageManager.FEATURE_CAMERA) && !pm.hasSystemFeature(PackageManager.FEATURE_CAMERA_FRONT)) {
+			    mPhotoButton.setEnabled(false);
+		    }
 		
-		mPhotoView = (ImageView)v.findViewById(R.id.crime_imageView);
-        
+		    mPhotoView = (ImageView)v.findViewById(R.id.crime_imageView);
+        mPhotoView.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Photo p = mCrime.getPhoto();
+                if (p == null)
+                    return;
+
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                String path = getActivity().getFileStreamPath(p.getFilename()).getAbsolutePath();
+                ImageFragment.newInstance(path).show(fm, DIALOG_IMAGE);
+            }
+        });
         return v;
     }
     
@@ -196,14 +191,15 @@ public class CrimeFragment extends Fragment
                 dialog.show(fm, DIALOG_TIME);
             }
         } else if (requestCode == REQUEST_PHOTO) {
-			// Create a new Photo object and attach it to the crime
-			String filename = data.getStringExtra(CrimeCameraFragment.EXTRA_PHOTO_FILENAME);
 			
-			if  (filename != null) {
-				Photo p = new Photo(filename);
-				mCrime.setPhoto(p);
-				showPhoto();
-            }
+          // Create a new Photo object and attach it to the crime
+			    String filename = data.getStringExtra(CrimeCameraFragment.EXTRA_PHOTO_FILENAME);
+			
+			    if  (filename != null) {
+				    Photo p = new Photo(filename);
+				    mCrime.setPhoto(p);
+			    	showPhoto();
+          }
         }
     }
     
