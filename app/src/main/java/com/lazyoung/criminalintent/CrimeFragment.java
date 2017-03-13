@@ -27,6 +27,7 @@ import android.support.v4.app.*;
 import android.widget.*;
 import android.content.pm.*;
 import android.util.*;
+import android.graphics.drawable.*;
 
 public class CrimeFragment extends Fragment
 {
@@ -46,6 +47,7 @@ public class CrimeFragment extends Fragment
     private Button mSetButton;
 	private ImageButton mPhotoButton;
     private CheckBox mSolvedCheckBox;
+	private ImageView mPhotoView;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -158,6 +160,8 @@ public class CrimeFragment extends Fragment
 		if (!pm.hasSystemFeature(PackageManager.FEATURE_CAMERA) && !pm.hasSystemFeature(PackageManager.FEATURE_CAMERA_FRONT)) {
 			mPhotoButton.setEnabled(false);
 		}
+		
+		mPhotoView = (ImageView)v.findViewById(R.id.crime_imageView);
         
         return v;
     }
@@ -194,8 +198,11 @@ public class CrimeFragment extends Fragment
         } else if (requestCode == REQUEST_PHOTO) {
 			// Create a new Photo object and attach it to the crime
 			String filename = data.getStringExtra(CrimeCameraFragment.EXTRA_PHOTO_FILENAME);
+			
 			if  (filename != null) {
-				Log.i(TAG, "filename: " + filename);
+				Photo p = new Photo(filename);
+				mCrime.setPhoto(p);
+				showPhoto();
             }
         }
     }
@@ -225,4 +232,27 @@ public class CrimeFragment extends Fragment
     public void returnResult() {
         getActivity().setResult(Activity.RESULT_OK,null);
     }
+	
+	private void showPhoto() {
+		// (Re)set the image button's image based on our photo
+		Photo p = mCrime.getPhoto();
+		BitmapDrawable b = null;
+		if (p != null) {
+			String path = getActivity().getFileStreamPath(p.getFilename()).getAbsolutePath();
+			b = PictureUtils.getScaledDrawable(getActivity(), path);
+		}
+		mPhotoView.setImageDrawable(b);
+	}
+	
+	@Override
+	public void onStart() {
+		super.onStart();
+		showPhoto();
+	}
+	
+	@Override
+	public void onStop() {
+		super.onStop();
+		PictureUtils.cleanImageView(mPhotoView);
+	}
 }
