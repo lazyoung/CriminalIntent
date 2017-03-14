@@ -21,16 +21,19 @@ import java.util.*;
 import java.io.*;
 import android.content.*;
 import android.app.*;
+import android.widget.*;
+import android.view.*;
 
 public class CrimeCameraFragment extends Fragment {
     private static final String TAG = "CrimeCameraFragment";
     public static final String EXTRA_PHOTO_FILENAME = "com.lazyoung.criminalintent.photo_filename";
     private Camera mCamera;
     private SurfaceView mSurfaceView;
-	private View mProgressContainer;
+	  private View mProgressContainer;
 	
-	private Camera.ShutterCallback mShutterCallback = new Camera.ShutterCallback() {
-		public void onShutter() {
+	  private Camera.ShutterCallback mShutterCallback = new Camera.ShutterCallback() {
+		
+    public void onShutter() {
 			// Display the progress indicator
 			mProgressContainer.setVisibility(View.VISIBLE);
 		}
@@ -80,8 +83,8 @@ public class CrimeCameraFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_crime_camera, container, false);
 
         mProgressContainer = v.findViewById(R.id.cime_camera_progressContainer);
-		mProgressContainer.setVisibility(View.INVISIBLE);
-		Button takePictureButton = (Button)v.findViewById(R.id.crime_camera_takePictureButton);
+		    mProgressContainer.setVisibility(View.INVISIBLE);
+		    ImageButton takePictureButton = (ImageButton)v.findViewById(R.id.crime_camera_takePictureButton);
         takePictureButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 				if  (mCamera !=  null) {
@@ -116,10 +119,11 @@ public class CrimeCameraFragment extends Fragment {
                 Camera.Parameters parameters = mCamera.getParameters();
                 Size s = getBestSupportedSize(parameters.getSupportedPreviewSizes(), width, height);
                 parameters.setPreviewSize(s.width, s.height);
-				s = getBestSupportedSize(parameters.getSupportedPictureSizes(), width, height);
-				parameters.setPictureSize(s.width, s.height);
+				        s = getBestSupportedSize(parameters.getSupportedPictureSizes(), width, height);
+				        parameters.setPictureSize(s.width, s.height);
                 mCamera.setParameters(parameters);
-
+                setCameraDisplayOrientation(getActivity(), 0, mCamera);
+                
                 try {
                     mCamera.startPreview();
                 } catch (Exception e) {
@@ -184,4 +188,31 @@ public class CrimeCameraFragment extends Fragment {
 
         return bestSize;
     }
+    
+    public static void setCameraDisplayOrientation(Activity activity,
+                                                   int cameraId, android.hardware.Camera camera) {
+        android.hardware.Camera.CameraInfo info =
+            new android.hardware.Camera.CameraInfo();
+        android.hardware.Camera.getCameraInfo(cameraId, info);
+        int rotation = activity.getWindowManager().getDefaultDisplay()
+            .getRotation();
+        int degrees = 0;
+        switch (rotation) {
+            case Surface.ROTATION_0: degrees = 0; break;
+            case Surface.ROTATION_90: degrees = 90; break;
+            case Surface.ROTATION_180: degrees = 180; break;
+            case Surface.ROTATION_270: degrees = 270; break;
+        }
+
+        int result;
+        if (info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
+            result = (info.orientation + degrees) % 360;
+            result = (360 - result) % 360;  // compensate the mirror
+        } else {  // back-facing
+            result = (info.orientation - degrees + 360) % 360;
+        }
+        camera.setDisplayOrientation(result);
+    }
 }
+
+

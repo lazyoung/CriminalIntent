@@ -11,12 +11,12 @@ public class Crime
     private static final String JSON_TITLE = "title";
     private static final String JSON_SOLVED = "solved";
     private static final String JSON_DATE = "date";
-	private static final String JSON_PHOTO = "photo";
+	  private static final String JSON_PHOTO = "photo";
     private UUID mId;
     private String mTitle;
     private Date mDate;
     private boolean mSolved;
-	private Photo mPhoto;
+	  private Photo mPhoto;
     
     public Crime(){
         mId = UUID.randomUUID();
@@ -86,12 +86,12 @@ public class Crime
         return mTitle;
     }
 	
-	public Photo getPhoto() {
-		return mPhoto;
+	  public Photo getPhoto() {
+		  return mPhoto;
     }
 
-	public void setPhoto(Photo p) {
-		mPhoto = p;
+	  public void setPhoto(Photo p) {
+		  mPhoto = p;
     }
 
 }
