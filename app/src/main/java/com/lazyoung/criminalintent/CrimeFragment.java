@@ -40,7 +40,7 @@ public class CrimeFragment extends Fragment
         super.onCreate( savedInstanceState );
         UUID crimeId = (UUID)getArguments().getSerializable(EXTRA_CRIME_ID);
         mCrime = CrimeLab.get(getActivity()).getCrime(crimeId);
-		setHasOptionsMenu(true);
+		    setHasOptionsMenu(true);
     }
 
     @Override
@@ -58,8 +58,19 @@ public class CrimeFragment extends Fragment
 					NavUtils.navigateUpFromSameTask(getActivity());
 				}
 				return true;
-            case R.id.menu_item_delete_crime:
-                CrimeLab.get(getActivity()).deleteCrime(mCrime);
+        
+      case R.id.menu_item_delete_crime:
+          CrimeLab.get(getActivity()).deleteCrime(mCrime);
+          return true;
+          
+      case R.id.menu_item_delete_photo:
+          PictureUtils.cleanImageView(mPhotoView);
+          UUID crimeId = (UUID)getArguments().getSerializable(EXTRA_CRIME_ID);
+          CrimeLab.get(getActivity()).getCrime(crimeId).getPhoto().cleanPhoto();
+          CrimeLab.get(getActivity()).getCrime(crimeId).deletePhoto();
+          
+          return true;
+          
 			default:
 			    return super.onOptionsItemSelected(item);
 		}

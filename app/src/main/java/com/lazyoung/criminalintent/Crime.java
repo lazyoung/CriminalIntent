@@ -39,8 +39,8 @@ public class Crime
         json.put(JSON_SOLVED, mSolved);
         json.put(JSON_DATE, mDate.getTime());
 		
-		if (mPhoto != null)
-			json.put(JSON_PHOTO, mPhoto.toJSON());
+	    	if (mPhoto != null)
+			    json.put(JSON_PHOTO, mPhoto.toJSON());
 
         return json;
     }
@@ -92,6 +92,10 @@ public class Crime
 
 	  public void setPhoto(Photo p) {
 		  mPhoto = p;
+    }
+    
+    public void deletePhoto() {
+      mPhoto = null;
     }
 
 }

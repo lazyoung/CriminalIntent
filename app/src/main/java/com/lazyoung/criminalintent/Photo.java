@@ -2,6 +2,7 @@ package com.lazyoung.criminalintent;
 import org.json.JSONObject;
 import org.json.JSONException;
 import android.view.*;
+import java.io.*;
 
 public class Photo {
      private static final String JSON_FILENAME = "filename";
@@ -41,5 +42,12 @@ public class Photo {
     
     public int getDegree() {
         return mDegree;
+    }
+    
+    public void cleanPhoto() {
+        File file = new File(mFilename);
+        if (file.isFile() && file.exists()) {
+            file.delete();
+        } 
     }
 }
