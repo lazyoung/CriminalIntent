@@ -122,7 +122,7 @@ public class CrimeCameraFragment extends Fragment {
 				        s = getBestSupportedSize(parameters.getSupportedPictureSizes(), width, height);
 				        parameters.setPictureSize(s.width, s.height);
                 mCamera.setParameters(parameters);
-                setCameraDisplayOrientation(getActivity(), 0, mCamera);
+                setCameraDisplayOrientation(getActivity(), 1, mCamera);
                 
                 try {
                     mCamera.startPreview();
@@ -169,8 +169,6 @@ public class CrimeCameraFragment extends Fragment {
 		}
 	}
 
-
-
     /** A simple algorithm to get the largest size available.For a more *
      *  robust version, see CameraPreview. java in the ApiDemos
      *  * sample app from Android. */
@@ -194,8 +192,7 @@ public class CrimeCameraFragment extends Fragment {
         android.hardware.Camera.CameraInfo info =
             new android.hardware.Camera.CameraInfo();
         android.hardware.Camera.getCameraInfo(cameraId, info);
-        int rotation = activity.getWindowManager().getDefaultDisplay()
-            .getRotation();
+        int rotation = activity.getWindowManager().getDefaultDisplay().getRotation();
         int degrees = 0;
         switch (rotation) {
             case Surface.ROTATION_0: degrees = 0; break;

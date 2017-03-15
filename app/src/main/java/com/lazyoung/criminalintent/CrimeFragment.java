@@ -155,7 +155,7 @@ public class CrimeFragment extends Fragment
 
                 FragmentManager fm = getActivity().getSupportFragmentManager();
                 String path = getActivity().getFileStreamPath(p.getFilename()).getAbsolutePath();
-                ImageFragment.newInstance(path).show(fm, DIALOG_IMAGE);
+                ImageFragment.newInstance(path, p.getDegree()).show(fm, DIALOG_IMAGE);
             }
         });
         return v;
@@ -194,9 +194,9 @@ public class CrimeFragment extends Fragment
 			
           // Create a new Photo object and attach it to the crime
 			    String filename = data.getStringExtra(CrimeCameraFragment.EXTRA_PHOTO_FILENAME);
-			
+          int rotation = getActivity().getWindowManager().getDefaultDisplay().getRotation();
 			    if  (filename != null) {
-				    Photo p = new Photo(filename);
+				    Photo p = new Photo(filename, rotation);
 				    mCrime.setPhoto(p);
 			    	showPhoto();
           }
@@ -235,7 +235,7 @@ public class CrimeFragment extends Fragment
 		BitmapDrawable b = null;
 		if (p != null) {
 			String path = getActivity().getFileStreamPath(p.getFilename()).getAbsolutePath();
-			b = PictureUtils.getScaledDrawable(getActivity(), path);
+			b = PictureUtils.getScaledDrawable(getActivity(), path, p.getDegree());
 		}
 		mPhotoView.setImageDrawable(b);
 	}

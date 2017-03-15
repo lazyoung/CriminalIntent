@@ -11,7 +11,7 @@ public class PictureUtils {
     * to fit the current Window size.
     */
     @SuppressWarnings("deprecation")
-    public static BitmapDrawable getScaledDrawable(Activity a, String path) {
+    public static BitmapDrawable getScaledDrawable(Activity a, String path, int degree) {
          Display display = a.getWindowManager().getDefaultDisplay();
          float destWidth = display.getWidth();
          float destHeight = display.getHeight();
@@ -19,7 +19,7 @@ public class PictureUtils {
          // Read in the dimensions of the image on disk
          BitmapFactory.Options options = new BitmapFactory.Options();
          options.inJustDecodeBounds = true;
-		 BitmapFactory.decodeFile(path, options);
+		     BitmapFactory.decodeFile(path, options);
 		 
          float srcWidth = options.outWidth;
          float srcHeight = options.outHeight;
@@ -35,9 +35,13 @@ public class PictureUtils {
 
          options = new BitmapFactory.Options();
          options.inSampleSize = inSampleSize;
-
          Bitmap bitmap = BitmapFactory.decodeFile(path, options);
-         return new BitmapDrawable(a.getResources(), bitmap);
+             
+         Matrix matrix = new Matrix();
+         matrix.postRotate(degree);
+
+         Bitmap bm = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+         return new BitmapDrawable(a.getResources(), bm);
     }
 	
 	public static void cleanImageView(ImageView imageView) {
