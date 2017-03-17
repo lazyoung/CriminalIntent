@@ -110,5 +110,13 @@
 		android:layout_marginLeft="16dp"
 		android:layout_marginRight="16dp"/>
 
+	<Button
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:text="Call Suspect"
+		android:id="@+id/crime_dialButton"
+		android:layout_marginLeft="16dp"
+		android:layout_marginRight="16dp"/>
+
 </LinearLayout>
 

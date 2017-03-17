@@ -190,6 +190,17 @@ public class CrimeFragment extends Fragment
             }
         });
         
+        Button callButton = (Button) v.findViewById(R.id.crime_dialButton);
+        callButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent i = new Intent(Intent.ACTION_DIAL);
+                PackageManager pm = getActivity().getPackageManager();
+                List activities = pm.queryIntentActivities(i, 0 );
+                if (activities.size() > 0)
+                    startActivity(i);
+            } 
+        });
+        
         mSuspectButton = (Button)v.findViewById(R.id.crime_suspectButton);
         mSuspectButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
