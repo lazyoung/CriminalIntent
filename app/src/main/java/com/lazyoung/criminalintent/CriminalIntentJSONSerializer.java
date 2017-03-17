@@ -22,7 +22,7 @@ public class CriminalIntentJSONSerializer {
             // open and read the file into a StringBuilder
             InputStream in = null; //mContext.openFileInput(mFileName);
             if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-                in = new FileInputStream(new File(Environment.getExternalStorageDirectory().getAbsolutePath(), mFileName));
+              in = new FileInputStream(new File(Environment.getExternalStorageDirectory().getAbsolutePath(), mFileName));
             }
             else {
                 in = mContext.openFileInput(mFileName);

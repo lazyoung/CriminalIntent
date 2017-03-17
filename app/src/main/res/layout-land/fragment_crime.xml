@@ -16,7 +16,7 @@
 			android:layout_height="wrap_content"
 			android:orientation="vertical"
 			android:layout_marginRight="4dp">
-			
+
 			<ImageView
 				android:background="@android:color/darker_gray"
 				android:layout_height="80dp"
@@ -65,12 +65,18 @@
 	<Button
 		android:id="@+id/crime_date"
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content"/>
+		android:layout_height="wrap_content"
+		android:text="Crime date"
+		android:layout_marginLeft="16dp"
+		android:layout_marginRight="16dp"/>
 
 	<Button
 		android:layout_height="wrap_content"
-	    android:layout_width="match_parent"
-		android:id="@+id/crime_time"/>
+		android:layout_width="match_parent"
+		android:id="@+id/crime_time"
+		android:text="Crime Time"
+		android:layout_marginLeft="16dp"
+		android:layout_marginRight="16dp"/>
 
 	<CheckBox
 		android:id="@+id/crime_solved"
@@ -81,7 +87,26 @@
 	<Button
 		android:layout_height="wrap_content"
 		android:layout_width="match_parent"
-		android:id="@+id/crime_set"/>
+		android:id="@+id/crime_set"
+		android:text="Day and Time"
+		android:layout_marginLeft="16dp"
+		android:layout_marginRight="16dp"/>
+
+	<Button
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:text="@string/crime_suspect_text"
+		android:id="@+id/crime_suspectButton"
+		android:layout_marginRight="16dp"
+		android:layout_marginLeft="16dp"/>
+
+	<Button
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:text="@string/crime_report_text"
+		android:id="@+id/crime_reportButton"
+		android:layout_marginLeft="16dp"
+		android:layout_marginRight="16dp"/>
 
 </LinearLayout>
 
